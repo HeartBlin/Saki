@@ -1,7 +1,9 @@
 { config, pkgs, modules, ... }:
 
-{
-  imports = with modules.nixosModules; [ steam ];
+let
+  usedModules = with modules.nixosModules; [ nh steam ];
+in{
+  imports = usedModules;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -20,17 +22,6 @@
     enable = true;
     pulse.enable = true;
   };
-
-  # Enable Chrome
-  users.users."heartblin".packages = [ pkgs.google-chrome ];
-  environment.etc."opt/chrome/policies/managed/extensions.json".text =
-    builtins.toJSON {
-      ExtensionInstallForcelist = [
-        "ddkjiahejlhfcafbddmgiahcphecmpfh;https://clients2.google.com/service/update2/crx"
-        "nngceckbapebfimnlniiiahkandclblb;https://clients2.google.com/service/update2/crx"
-        "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx"
-      ];
-    };
 
   programs.mtr.enable = true;
   programs.gnupg.agent = {
