@@ -1,6 +1,12 @@
 { modules, ... }:
 
-{
+let
+  usedModules = with modules.homeModules; [
+    chrome
+    git
+    vscode
+  ];
+in{
   users.users.heartblin = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "input" ];
@@ -11,7 +17,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.heartblin = { ... }: {
-      imports = with modules.homeModules; [ git vscode ];
+      imports = usedModules;
 
       programs.home-manager.enable = true;
 
