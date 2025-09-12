@@ -5,6 +5,7 @@ let
     bootloader
     nh
     nvidiaSuperbia
+    prettyBoot
     steam
   ];
 in {
