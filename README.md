@@ -2,6 +2,7 @@
 
 [![NixOS](https://img.shields.io/badge/NixOS-Configuration-5277C3.svg?logo=nixos&logoColor=white)](https://nixos.org/)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Build Status](https://github.com/HeartBlin/Saki/actions/workflows/check.yaml/badge.svg)](https://github.com/HeartBlin/Saki/actions/workflows/check.yaml)
 
 > My personal NixOS configuration. Unstable as I change things abruptly.
 
