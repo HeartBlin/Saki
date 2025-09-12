@@ -1,12 +1,14 @@
 { pkgs, modules, ... }:
 
 let
-  usedModules = with modules.nixosModules; [ nh nvidiaSuperbia steam ];
-in{
+  usedModules = with modules.nixosModules; [
+    bootloader
+    nh
+    nvidiaSuperbia
+    steam
+  ];
+in {
   imports = usedModules;
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "Superbia";
   networking.networkmanager.enable = true;
