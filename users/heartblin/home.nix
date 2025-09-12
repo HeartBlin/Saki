@@ -1,12 +1,14 @@
-{ modules, ... }:
+{ modules, pkgs, ... }:
 
-let usedModules = with modules.homeModules; [ chrome git vscode ];
+let usedModules = with modules.homeModules; [ chrome fish git starship vscode ];
 in {
+  programs.fish.enable = true;
   users.users.heartblin = {
     description = "HeartBlin";
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "input" ];
     initialPassword = "changeme";
+    shell = pkgs.fish;
   };
 
   home-manager = {
@@ -14,9 +16,7 @@ in {
     useUserPackages = true;
     users.heartblin = { ... }: {
       imports = usedModules;
-
       programs.home-manager.enable = true;
-
       home = {
         username = "heartblin";
         homeDirectory = "/home/heartblin";
