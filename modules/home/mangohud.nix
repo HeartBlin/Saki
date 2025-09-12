@@ -1,8 +1,6 @@
 {
   config.flake.homeModules.mangohud = _: {
-    programs.mangohud = {
-      enable = true;
-    };
+    programs.mangohud.enable = true;
 
     # Wont manage settings with the module since
     # It orders the file weirdly
