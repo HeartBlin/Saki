@@ -1,4 +1,4 @@
-name: Check the NixOS flake
+name: Time the flakes evaluation
 
 on:
     push:
@@ -15,7 +15,7 @@ on:
             - 'README.md'
 
 jobs:
-    check:
+    timing:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -24,6 +24,10 @@ jobs:
             - name: Install Nix
               uses: cachix/install-nix-action@v31
 
-            - name: Run checks
-              run: nix flake check --all-systems
-
+            - name: Time flakes evaluation
+              run: |
+                time nix eval \
+                  .#nixosConfigurations.Superbia.config.system.build.toplevel \
+                  --substituters " " \
+                  --option eval-cache false \
+                  --raw --read-only
