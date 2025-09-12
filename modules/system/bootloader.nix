@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.bootloader = { ... }: {
+  config.flake.nixosModules.bootloader = _: {
     services.journald.extraConfig = "SystemMaxUse=50M";
     boot = {
       initrd.systemd.enable = true;

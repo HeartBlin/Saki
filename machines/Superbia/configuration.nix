@@ -15,10 +15,10 @@ in {
 
   time.timeZone = "Europe/Bucharest";
 
-  services.xserver.enable = true;
-
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  services = {
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+  };
 
   services.pipewire = {
     enable = true;

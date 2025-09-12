@@ -17,7 +17,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ flake-parts, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ flake-parts, home-manager, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ config, self, ... }: {
       systems = import inputs.systems;
 
@@ -28,6 +28,6 @@
       ];
 
       flake.nixosConfigurations =
-        (import ./machines/definitions.nix { inherit config inputs self; });
+        import ./machines/definitions.nix { inherit config inputs self; };
     });
 }

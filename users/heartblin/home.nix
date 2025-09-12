@@ -3,6 +3,7 @@
 let usedModules = with modules.homeModules; [ chrome git vscode ];
 in {
   users.users.heartblin = {
+    description = "HeartBlin";
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "input" ];
     initialPassword = "changeme";
@@ -16,9 +17,11 @@ in {
 
       programs.home-manager.enable = true;
 
-      home.username = "heartblin";
-      home.homeDirectory = "/home/heartblin";
-      home.stateVersion = "25.11";
+      home = {
+        username = "heartblin";
+        homeDirectory = "/home/heartblin";
+        stateVersion = "25.11";
+      };
     };
   };
 }
