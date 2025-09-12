@@ -1,7 +1,7 @@
-{ config, pkgs, modules, ... }:
+{ pkgs, modules, ... }:
 
 let
-  usedModules = with modules.nixosModules; [ nh steam ];
+  usedModules = with modules.nixosModules; [ nh nvidiaSuperbia steam ];
 in{
   imports = usedModules;
 
@@ -29,17 +29,6 @@ in{
     enableSSHSupport = true;
   };
 
-  hardware.graphics = { enable = true; };
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = true;
-    nvidiaSettings = false;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.package = pkgs.nixVersions.nix_2_30;
