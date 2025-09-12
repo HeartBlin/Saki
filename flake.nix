@@ -21,10 +21,7 @@
     flake-parts.lib.mkFlake { inherit inputs; } ({ config, self, ... }: {
       systems = import inputs.systems;
 
-      imports = [
-        (inputs.import-tree ./modules)
-        ./fragments/checks.nix
-      ];
+      imports = [ (inputs.import-tree ./modules) ./fragments/checks.nix ];
 
       flake.nixosConfigurations =
         import ./machines/definitions.nix { inherit config inputs self; };
