@@ -3,13 +3,14 @@
 [![NixOS](https://img.shields.io/badge/NixOS-Configuration-5277C3.svg?logo=nixos&logoColor=white)](https://nixos.org/)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-> My personal NixOS configuration, carefully crafted and continuously evolving.
+> My personal NixOS configuration. Unstable as I change things abruptly.
 
 ## ✨ Overview
 
 This repository contains my personal NixOS configuration, managed with [flake-parts](https://github.com/hercules-ci/flake-parts).
 
-The configuration follows the [dendritic](https://github.com/mightyiam/dendritic) pattern for better organization and maintainability.
+> [!NOTE]
+> The configuration follows the [dendritic](https://github.com/mightyiam/dendritic) pattern for better organization and maintainability.
 
 ## 📂 Project Structure
 
