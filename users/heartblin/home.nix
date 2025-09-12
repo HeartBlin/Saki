@@ -1,12 +1,7 @@
 { modules, ... }:
 
-let
-  usedModules = with modules.homeModules; [
-    chrome
-    git
-    vscode
-  ];
-in{
+let usedModules = with modules.homeModules; [ chrome git vscode ];
+in {
   users.users.heartblin = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "input" ];

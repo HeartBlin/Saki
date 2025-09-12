@@ -4,13 +4,14 @@ let
   inherit (inputs.nixpkgs.lib) nixosSystem;
   inherit (config) flake;
 
-  machineFiles = machine: let
-    files = [ "configuration.nix" "hardware-configuration.nix" "disko.nix" ];
-  in map (file: "${self}/machines/${machine}/${file}") files;
+  machineFiles = machine:
+    let
+      files = [ "configuration.nix" "hardware-configuration.nix" "disko.nix" ];
+    in map (file: "${self}/machines/${machine}/${file}") files;
 
-  userFiles = user: let
-    files = [ "home.nix" ];
-  in map (file: "${self}/users/${user}/${file}") files;
+  userFiles = user:
+    let files = [ "home.nix" ];
+    in map (file: "${self}/users/${user}/${file}") files;
 in {
   # ROG Strix G513IE Laptop
   # - CPU: AMD Ryzen 7 4800H
