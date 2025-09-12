@@ -19,7 +19,7 @@ in {
     system = "x86_64-linux";
     specialArgs = {
       modules = flake;
-      currentUser = currentUser;
+      inherit currentUser inputs;
     };
 
     modules = [ inputs.disko.nixosModules.disko inputs.hjem.nixosModules.hjem ]

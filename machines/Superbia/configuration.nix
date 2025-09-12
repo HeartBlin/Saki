@@ -1,14 +1,15 @@
-{ currentUser, pkgs, modules, ... }:
+{ currentUser, modules, pkgs, ... }:
 
 let
   usedModules = with modules.nixosModules; [
-    bootloader
+    boot
     chrome
     fish
     gamemode
     git
     mangohud
     nh
+    nix
     nvidiaSuperbia
     starship
     prettyBoot
@@ -28,10 +29,13 @@ in {
     initialPassword = "changeme";
   };
 
-  hjem.users."${currentUser}" = {
-    enable = true;
-    directory = "/home/${currentUser}";
-    user = "${currentUser}";
+  hjem = {
+    linker = pkgs.smfh;
+    users."${currentUser}" = {
+      enable = true;
+      directory = "/home/${currentUser}";
+      user = "${currentUser}";
+    };
   };
 
   time.timeZone = "Europe/Bucharest";
@@ -52,9 +56,6 @@ in {
     enableSSHSupport = true;
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.package = pkgs.nixVersions.nix_2_30;
-  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.11";
   nixpkgs.hostPlatform = "x86_64-linux";
 }
