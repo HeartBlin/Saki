@@ -1,4 +1,4 @@
-# 🌸 Saki 🌸
+# <p align="center"> 🎉 Saki </p>
 
 [![NixOS](https://img.shields.io/badge/NixOS-Configuration-5277C3.svg?logo=nixos&logoColor=white)](https://nixos.org/)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
