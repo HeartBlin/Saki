@@ -1,6 +1,14 @@
 { modules, pkgs, ... }:
 
-let usedModules = with modules.homeModules; [ chrome fish git starship vscode ];
+let
+  usedModules = with modules.homeModules; [
+    chrome
+    fish
+    git
+    mangohud
+    starship
+    vscode
+  ];
 in {
   programs.fish.enable = true;
   users.users.heartblin = {

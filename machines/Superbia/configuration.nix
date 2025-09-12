@@ -3,6 +3,7 @@
 let
   usedModules = with modules.nixosModules; [
     bootloader
+    gamemode
     nh
     nvidiaSuperbia
     prettyBoot
