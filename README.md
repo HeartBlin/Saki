@@ -2,7 +2,7 @@
 
 [![NixOS](https://img.shields.io/badge/NixOS-Configuration-5277C3.svg?logo=nixos&logoColor=white)](https://nixos.org/)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/HeartBlin/Saki/check.yaml?branch=master&logo=github)](https://github.com/HeartBlin/Saki/actions/workflows/check.yaml)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/HeartBlin/Saki/verify.yaml?branch=master&logo=github)](https://github.com/HeartBlin/Saki/actions/workflows/verify.yaml)
 
 > My personal NixOS configuration. Unstable as I change things abruptly.
 
