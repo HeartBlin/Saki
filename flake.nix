@@ -13,16 +13,15 @@
 
     # System management
     disko.url = "github:nix-community/disko";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    hjem.url = "github:feel-co/hjem";
+    hjem.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ flake-parts, home-manager, ... }:
+  outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ config, self, ... }: {
       systems = import inputs.systems;
 
       imports = [
-        home-manager.flakeModules.home-manager
         (inputs.import-tree ./modules)
         ./fragments/checks.nix
       ];

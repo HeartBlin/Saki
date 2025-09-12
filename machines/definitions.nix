@@ -8,23 +8,23 @@ let
     let
       files = [ "configuration.nix" "hardware-configuration.nix" "disko.nix" ];
     in map (file: "${self}/machines/${machine}/${file}") files;
-
-  userFiles = user:
-    let files = [ "home.nix" ];
-    in map (file: "${self}/users/${user}/${file}") files;
 in {
   # ROG Strix G513IE Laptop
   # - CPU: AMD Ryzen 7 4800H
   # - GPU: NVIDIA GeForce RTX 3050 Ti Mobile
   # - RAM: 16GB
   # - Storage: 1TB Samsung SSD 970 EVO Plus NVMe
-  Superbia = nixosSystem {
+  Superbia = let currentUser = "heartblin";
+  in nixosSystem {
     system = "x86_64-linux";
-    specialArgs = { modules = flake; };
+    specialArgs = {
+      modules = flake;
+      currentUser = currentUser;
+    };
 
     modules = [
       inputs.disko.nixosModules.disko
-      inputs.home-manager.nixosModules.home-manager
-    ] ++ machineFiles "Superbia" ++ userFiles "heartblin";
+      inputs.hjem.nixosModules.hjem
+    ] ++ machineFiles "Superbia";
   };
 }

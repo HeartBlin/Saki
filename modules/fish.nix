@@ -1,16 +1,9 @@
 {
-  config.flake.homeModules.fish = { pkgs, ... }: {
+  config.flake.nixosModules.fish = { currentUser, pkgs, ... }: {
+    users.users.${currentUser}.shell = pkgs.fish;
     programs.fish = {
       enable = true;
-      shellAliases = {
-        ls = "${pkgs.eza}/bin/eza -l";
-
-        # Git commands
-        ga = "git add .";
-        gc = "git commit -m";
-        gp = "git push";
-        gs = "git status";
-      };
+      shellAliases = { ls = "${pkgs.eza}/bin/eza -l"; };
 
       interactiveShellInit = ''
         set fish_greeting

@@ -1,10 +1,7 @@
 {
-  config.flake.homeModules.mangohud = _: {
-    programs.mangohud.enable = true;
-
-    # Wont manage settings with the module since
-    # It orders the file weirdly
-    home.file.".config/MangoHud/MangoHud.conf".text = ''
+  config.flake.nixosModules.mangohud = { currentUser, pkgs, ... }: {
+    environment.systemPackages = with pkgs; [ mangohud ];
+    hjem.users.${currentUser}.files.".config/MangoHud/MangoHud.conf".text = ''
       battery
       cpu_power
       cpu_stats

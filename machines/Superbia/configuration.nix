@@ -1,19 +1,38 @@
-{ pkgs, modules, ... }:
+{ currentUser, pkgs, modules, ... }:
 
 let
   usedModules = with modules.nixosModules; [
     bootloader
+    chrome
+    fish
     gamemode
+    git
+    mangohud
     nh
     nvidiaSuperbia
+    starship
     prettyBoot
     steam
+    vscode
   ];
 in {
   imports = usedModules;
 
   networking.hostName = "Superbia";
   networking.networkmanager.enable = true;
+
+  users.users.heartblin = {
+    description = "HeartBlin";
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "video" "input" ];
+    initialPassword = "changeme";
+  };
+
+  hjem.users."${currentUser}" = {
+    enable = true;
+    directory = "/home/${currentUser}";
+    user = "${currentUser}";
+  };
 
   time.timeZone = "Europe/Bucharest";
 
