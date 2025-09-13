@@ -1,13 +1,13 @@
 {
   config.flake.nixosModules.prettyBoot = _: {
     boot = {
+      consoleLogLevel = 3;
+      initrd.verbose = false;
       plymouth = {
         enable = true;
         theme = "bgrt";
       };
 
-      consoleLogLevel = 3;
-      initrd.verbose = false;
       kernelParams = [
         "quiet"
         "splash"

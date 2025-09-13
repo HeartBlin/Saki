@@ -10,7 +10,7 @@ let
     mangohud
     nh
     nix
-    nvidiaSuperbia
+    nvidia
     starship
     prettyBoot
     steam
@@ -57,6 +57,5 @@ in {
   };
 
   system.stateVersion = "25.11";
-  nixpkgs.hostPlatform = "x86_64-linux";
 }
 

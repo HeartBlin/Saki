@@ -1,15 +1,13 @@
 {
-  config.flake.nixosModules.nvidiaSuperbia = { config, pkgs, ... }: {
+  config.flake.nixosModules.nvidia = { config, pkgs, ... }: {
+    services.xserver.enable = true;
+    services.xserver.videoDrivers = [ "nvidia" ];
+    boot.blacklistedKernelModules = [ "nouveau" ];
     nixpkgs.config = {
       allowUnfree = true;
       nvidia.acceptLicense = true;
       cudaSupport = true;
     };
-
-    services.xserver.enable = true;
-    services.xserver.videoDrivers = [ "nvidia" ];
-
-    boot.blacklistedKernelModules = [ "nouveau" ];
 
     environment.systemPackages = with pkgs; [
       btop
@@ -22,23 +20,19 @@
 
     hardware.nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.beta;
-
       dynamicBoost.enable = true;
       modesetting.enable = true;
-
+      nvidiaSettings = false;
+      open = true;
+      nvidiaPersistenced = true;
       prime = {
+        amdgpuBusId = "PCI:6:0:0";
+        nvidiaBusId = "PCI:1:0:0";
         offload = {
           enable = true;
           enableOffloadCmd = true;
         };
-
-        amdgpuBusId = "PCI:6:0:0";
-        nvidiaBusId = "PCI:1:0:0";
       };
-
-      nvidiaSettings = false;
-      open = true;
-      nvidiaPersistenced = true;
     };
 
     hardware.graphics = {

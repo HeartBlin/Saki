@@ -3,6 +3,7 @@
     system.nixos.distroName = "Saki";
     services.journald.extraConfig = "SystemMaxUse=50M";
     boot = {
+      tmp.useTmpfs = true;
       initrd.systemd.enable = true;
       loader = {
         timeout = 0;
@@ -12,8 +13,6 @@
           editor = false;
         };
       };
-
-      tmp.useTmpfs = true;
     };
 
     zramSwap = {
