@@ -1,7 +1,6 @@
 {
   config.flake.nixosModules.chrome = { currentUser, pkgs, ... }: {
     users.users."${currentUser}".packages = with pkgs; [ google-chrome ];
-
     environment.etc."opt/chrome/policies/managed/extensions.json".text =
       builtins.toJSON {
         ExtensionInstallForcelist = [

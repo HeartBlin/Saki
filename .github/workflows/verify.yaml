@@ -1,21 +1,17 @@
 name: Check the NixOS flake & measure evaluation time
 
 on:
-    push:
-        branches: [ master ]
-        paths-ignore:
-            - '.github/**'
-            - 'LICENSE'
-            - 'README.md'
-    pull_request:
-        branches: [ master ]
-        paths-ignore:
-            - '.github/**'
-            - 'LICENSE'
-            - 'README.md'
+  push:
+    branches: [ master ]
+    paths:
+      - '**/*.nix'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '**/*.nix'
 
 jobs:
-    check:
+    Check:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -33,7 +29,7 @@ jobs:
             - name: Run checks
               run: nix flake check --all-systems
 
-    timing:
+    EvalTime:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -55,4 +51,3 @@ jobs:
                   --substituters " " \
                   --option eval-cache false \
                   --raw --read-only
-
