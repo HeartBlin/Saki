@@ -76,7 +76,7 @@
       workbench = {
         "workbench.colorTheme" = "Default Dark+";
         "workbench.editor.empty.hint" = "hidden";
-        "workbench.iconTheme" = "material-icon-themedadsad";
+        "workbench.iconTheme" = "material-icon-theme";
         "workbench.layoutControl.enabled" = false;
         "workbench.startupEditor" = "none";
       };
