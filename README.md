@@ -11,31 +11,34 @@
 This repository contains my personal NixOS configuration, managed with [flake-parts](https://github.com/hercules-ci/flake-parts).
 
 > [!NOTE]
-> The configuration follows the [dendritic](https://github.com/mightyiam/dendritic) pattern for better organization and maintainability.
+> The configuration loosely follows the [dendritic](https://github.com/mightyiam/dendritic) pattern for better organization and maintainability.
 
 ## 📂 Project Structure
 
 ```
 ├── flake.nix          # Main entry point for NixOS configuration
 ├── machines/          # Machine-specific configurations
-├── modules/           # Modular configurations
-│   ├── home/          # Home-manager modules
-│   └── system/        # System-level modules
-└── users/             # User-specific configurations
+└── modules/
+    ├── cli/           # Modules that declare CLI programs
+    ├── core/          # System modules
+    ├── gui/           # Modules that declare GUI programs
+    └── parts/         # Flake parts
 ```
 
 ## 🔍 Resources
 
-Configurations that served as inspiration:
+Configurations that I got <b><i>inspired</i></b> from:
 
 | Repository | Author |
 |------------|--------|
-| [NixOS-Configuration](https://github.com/TheMaxMur/NixOS-Configuration) | TheMaxMur |
-| [dotfiles](https://github.com/fufexan/dotfiles) | fufexan |
-| [yuki](https://github.com/raexera/yuki) | raexera |
-| [infra](https://github.com/perstarkse/infra) | perstarkse |
-| [nyx](https://github.com/NotAShelf/nyx) _<sub>archive</sub>_  | NotAShelf |
+| [NixOS-Configuration](https://github.com/TheMaxMur/NixOS-Configuration) | <b>TheMaxMur</b> |
+| [dotfiles](https://github.com/fufexan/dotfiles) | <b>fufexan</b> |
+| [yuki](https://github.com/raexera/yuki) | <b>raexera</b> |
+| [infra](https://github.com/perstarkse/infra) | <b>perstarkse</b> |
+| [Zaphkiel](https://github.com/Rexcrazy804/Zaphkiel) | <b>Rexcrazy804</b> |
+| [NixOhEss](https://gitlab.com/fazzi/nixohess) | <b>fazzi</b> |
+| [nyx](https://github.com/NotAShelf/nyx) <sub><i>archive</i></sub>  | <b>NotAShelf</b> |
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the <b>[LICENSE](LICENSE)</b> file for details.
