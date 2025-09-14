@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.asus = { config, lib, ... }: {
+  flake.nixosModules.asus = _: {
     services = {
       supergfxd.enable = true;
       asusd = {

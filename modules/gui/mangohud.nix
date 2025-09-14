@@ -1,6 +1,6 @@
 {
   flake.nixosModules.mangohud = { currentUser, pkgs, ... }: {
-    environment.systemPackages = with pkgs; [ mangohud ];
+    users.users."${currentUser}".packages = with pkgs; [ mangohud ];
     hjem.users.${currentUser}.files.".config/MangoHud/MangoHud.conf".text = ''
       battery
       cpu_power
