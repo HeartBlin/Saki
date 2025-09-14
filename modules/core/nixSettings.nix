@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.nix = { inputs, pkgs, ... }: {
+  flake.nixosModules.nix = { inputs, pkgs, ... }: {
     nixpkgs.config.allowUnfree = true;
     nix = {
       package = pkgs.nixVersions.latest;

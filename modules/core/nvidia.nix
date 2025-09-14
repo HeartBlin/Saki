@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.nvidia = { config, pkgs, ... }: {
+  flake.nixosModules.nvidia = { config, pkgs, ... }: {
     services.xserver.enable = true;
     services.xserver.videoDrivers = [ "nvidia" ];
     boot.blacklistedKernelModules = [ "nouveau" ];

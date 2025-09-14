@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.vscode = { currentUser, lib, pkgs, ... }:
+  flake.nixosModules.vscode = { currentUser, pkgs, ... }:
     let
       vscodeExtended = pkgs.vscode-with-extensions.override {
         vscodeExtensions = with pkgs.vscode-extensions; [

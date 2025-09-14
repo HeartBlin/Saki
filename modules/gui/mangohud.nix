@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.mangohud = { currentUser, pkgs, ... }: {
+  flake.nixosModules.mangohud = { currentUser, pkgs, ... }: {
     environment.systemPackages = with pkgs; [ mangohud ];
     hjem.users.${currentUser}.files.".config/MangoHud/MangoHud.conf".text = ''
       battery

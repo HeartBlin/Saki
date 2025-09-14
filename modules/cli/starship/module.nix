@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.starship = _: {
+  flake.nixosModules.starship = _: {
     programs.starship = {
       enable = true;
       settings = {

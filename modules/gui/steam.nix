@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.steam = { pkgs, ... }: {
+  flake.nixosModules.steam = { pkgs, ... }: {
     environment.systemPackages = [ pkgs.protontricks ];
     programs.steam = {
       enable = true;

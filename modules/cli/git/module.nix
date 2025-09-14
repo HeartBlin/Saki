@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.git = { currentUser, pkgs, ... }: {
+  flake.nixosModules.git = { currentUser, pkgs, ... }: {
     programs.git = {
       enable = true;
       package = pkgs.gitFull;

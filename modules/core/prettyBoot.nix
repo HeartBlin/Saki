@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.prettyBoot = _: {
+  flake.nixosModules.prettyBoot = _: {
     boot = {
       consoleLogLevel = 3;
       initrd.verbose = false;

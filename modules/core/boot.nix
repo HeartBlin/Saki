@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.boot = _: {
+  flake.nixosModules.boot = _: {
     system.nixos.distroName = "Saki";
     services.journald.extraConfig = "SystemMaxUse=50M";
     boot = {

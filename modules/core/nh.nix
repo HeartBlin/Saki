@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.nh = _: {
+  flake.nixosModules.nh = _: {
     programs.nh = {
       enable = true;
       clean.enable = true;

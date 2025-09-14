@@ -1,5 +1,5 @@
 {
-  config.flake.nixosModules.fish = { currentUser, pkgs, ... }: {
+  flake.nixosModules.fish = { currentUser, pkgs, ... }: {
     users.users.${currentUser}.shell = pkgs.fish;
     programs.fish = {
       enable = true;

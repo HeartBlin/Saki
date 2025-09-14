@@ -1,7 +1,9 @@
-{ currentUser, modules, pkgs, ... }:
+{ modules, ... }:
 
-let
-  usedModules = with modules.nixosModules; [
+{
+  networking.hostName = "Superbia";
+  system.stateVersion = "25.11";
+  imports = with modules.nixosModules; [
     boot
     chrome
     fish
@@ -14,30 +16,11 @@ let
     starship
     prettyBoot
     steam
+    user
     vscode
   ];
-in {
-  imports = usedModules;
 
-  networking.hostName = "Superbia";
   networking.networkmanager.enable = true;
-
-  users.users.heartblin = {
-    description = "HeartBlin";
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "input" ];
-    initialPassword = "changeme";
-  };
-
-  hjem = {
-    linker = pkgs.smfh;
-    users."${currentUser}" = {
-      enable = true;
-      directory = "/home/${currentUser}";
-      user = "${currentUser}";
-    };
-  };
-
   time.timeZone = "Europe/Bucharest";
 
   services = {
@@ -55,7 +38,5 @@ in {
     enable = true;
     enableSSHSupport = true;
   };
-
-  system.stateVersion = "25.11";
 }
 

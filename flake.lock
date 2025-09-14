@@ -2,7 +2,9 @@
   "nodes": {
     "disko": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1757508292,
@@ -43,7 +45,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "smfh": "smfh"
+        "smfh": [
+          "smfh"
+        ]
       },
       "locked": {
         "lastModified": 1757733237,
@@ -76,22 +80,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1752596105,
-        "narHash": "sha256-lFNVsu/mHLq3q11MuGkMhUUoSXEdQjCHvpReaGP1S2k=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "dab3a6e781554f965bde3def0aa2fda4eb8f1708",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1757487488,
         "narHash": "sha256-zwE/e7CuPJUWKdvvTCB7iunV4E/+G0lKfv4kk/5Izdg=",
         "owner": "nixos",
@@ -112,13 +100,13 @@
         "flake-parts": "flake-parts",
         "hjem": "hjem",
         "import-tree": "import-tree",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs",
+        "smfh": "smfh"
       }
     },
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "hjem",
           "smfh",
           "nixpkgs"
         ]
@@ -140,7 +128,6 @@
     "smfh": {
       "inputs": {
         "nixpkgs": [
-          "hjem",
           "nixpkgs"
         ],
         "rust-overlay": "rust-overlay",
