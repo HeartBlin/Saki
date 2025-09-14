@@ -4,6 +4,7 @@
   networking.hostName = "Superbia";
   system.stateVersion = "25.11";
   imports = with modules.nixosModules; [
+    asus
     boot
     chrome
     fish
