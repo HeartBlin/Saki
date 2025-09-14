@@ -7,6 +7,7 @@
     asus
     boot
     chrome
+    discord
     fish
     gamemode
     git
