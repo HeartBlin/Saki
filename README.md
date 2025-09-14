@@ -4,11 +4,11 @@
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/HeartBlin/Saki/verify.yaml?branch=master&logo=github)](https://github.com/HeartBlin/Saki/actions/workflows/verify.yaml)
 
-> My personal NixOS configuration. Unstable as I change things abruptly.
-
 ## ✨ Overview
 
-This repository contains my personal NixOS configuration, managed with [flake-parts](https://github.com/hercules-ci/flake-parts).
+My personal NixOS configuration. Unstable as I change things abruptly.
+
+Managed with [flake-parts](https://github.com/hercules-ci/flake-parts).
 
 > [!NOTE]
 > The configuration loosely follows the [dendritic](https://github.com/mightyiam/dendritic) pattern for better organization and maintainability.
