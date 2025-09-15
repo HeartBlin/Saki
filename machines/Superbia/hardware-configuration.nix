@@ -1,10 +1,9 @@
-{ config, lib, modulesPath, pkgs, ... }:
+{ config, lib, modulesPath, ... }:
 
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
     initrd.availableKernelModules =
       [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" ];
     initrd.kernelModules = [ "dm-snapshot" ];

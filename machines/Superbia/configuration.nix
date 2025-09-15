@@ -6,6 +6,7 @@
   imports = with modules.nixosModules; [
     asus
     boot
+    chaotic
     chrome
     discord
     fish
