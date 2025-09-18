@@ -16,6 +16,7 @@
     nh
     nix
     nvidia
+    secureBoot
     starship
     prettyBoot
     steam

@@ -1,7 +1,11 @@
 {
   flake.nixosModules.boot = _: {
     system.nixos.distroName = "Saki";
-    services.journald.extraConfig = "SystemMaxUse=50M";
+    services = {
+      fwupd.enable = true;
+      journald.extraConfig = "SystemMaxUse=50M";
+    };
+
     boot = {
       tmp.useTmpfs = true;
       initrd.systemd.enable = true;

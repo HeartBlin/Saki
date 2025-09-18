@@ -16,6 +16,10 @@
 
     import-tree.url = "github:vic/import-tree";
 
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote.inputs.flake-parts.follows = "flake-parts";
+
     smfh.url = "github:feel-co/smfh";
     smfh.inputs.nixpkgs.follows = "nixpkgs";
   };
