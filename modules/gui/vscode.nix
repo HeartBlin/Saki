@@ -23,7 +23,7 @@
       }];
 
       vscodeExtended = pkgs.vscode-with-extensions.override {
-        vscode = pkgs.vscode;
+        inherit (pkgs) vscode;
         vscodeExtensions = languageServers ++ gitHubExtensions ++ uiExtensions
           ++ manualExtensions;
       };
