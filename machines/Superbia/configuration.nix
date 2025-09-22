@@ -12,13 +12,14 @@
     fish
     gamemode
     git
+    gnome
     mangohud
     nh
     nix
     nvidia
+    prettyBoot
     secureBoot
     starship
-    prettyBoot
     steam
     user
     virt
@@ -27,11 +28,6 @@
 
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Bucharest";
-
-  services = {
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-  };
 
   services.pipewire = {
     enable = true;
