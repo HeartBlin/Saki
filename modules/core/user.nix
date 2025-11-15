@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.user = { currentUser, inputs', pkgs, prettyName, ... }: {
+  flake.nixosModules.user = { currentUser, inputs', prettyName, ... }: {
     hjem = {
       clobberByDefault = true;
       linker = inputs'.hjem.packages.smfh;

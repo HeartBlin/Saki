@@ -17,6 +17,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # No follows here, I don't want to recompile every time
+    hyprland.url = "github:hyprwm/Hyprland";
+
     import-tree.url = "github:vic/import-tree";
 
     lanzaboote = {
