@@ -15,17 +15,43 @@
         usernamehw.errorlens
       ];
 
-      manualExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
-        name = "copilot-chat";
-        publisher = "GitHub";
-        version = "0.31.1";
-        sha256 = "sha256-1QVCfEr9Ws193mOpnJp2Y7PNnTaO2TR2fp3gNdtEVLM=";
-      }];
+      cDevExtensions = with pkgs.vscode-extensions; [
+        ms-vscode.cpptools-extension-pack
+        llvm-vs-code-extensions.vscode-clangd
+      ];
+
+      manualExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "copilot-chat";
+          publisher = "GitHub";
+          version = "0.31.1";
+          sha256 = "sha256-1QVCfEr9Ws193mOpnJp2Y7PNnTaO2TR2fp3gNdtEVLM=";
+        }
+        {
+          name = "sftp";
+          publisher = "natizyskunk";
+          version = "1.16.3";
+          sha256 = "sha256-HifPiHIbgsfTldIeN9HaVKGk/ujaZbjHMiLAza/o6J4=";
+        }
+      ];
 
       vscodeExtended = pkgs.vscode-with-extensions.override {
         inherit (pkgs) vscode;
         vscodeExtensions = languageServers ++ gitHubExtensions ++ uiExtensions
-          ++ manualExtensions;
+          ++ cDevExtensions ++ manualExtensions;
+      };
+
+      cDevSettings = {
+        "C_Cpp.intelliSenseEngine" = "disabled";
+        "C_Cpp.default.compilerPath" = "${pkgs.gcc}/bin/gcc";
+        "[c]" = {
+          "editor.defaultFormatter" = "llvm-tools.clangd";
+          "editor.formatOnSave" = true;
+        };
+        "[cpp]" = {
+          "editor.defaultFormatter" = "llvm-tools.clangd";
+          "editor.formatOnSave" = true;
+        };
       };
 
       editorSettings = {
@@ -95,8 +121,8 @@
         "terminal.integrated.gpuAcceleration" = "on";
       };
 
-      allSettings = editorSettings // explorerSettings // filesSettings
-        // nixSettings // telemetrySettings // windowSettings
+      allSettings = cDevSettings // editorSettings // explorerSettings
+        // filesSettings // nixSettings // telemetrySettings // windowSettings
         // workbenchSettings // terminalSettings;
 
       settingsJSON = builtins.toJSON allSettings;

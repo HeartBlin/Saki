@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.boot = _: {
+  flake.nixosModules.boot = { pkgs, ... }: {
     system.nixos.distroName = "Saki";
     services = {
       fwupd.enable = true;
@@ -9,6 +9,7 @@
     boot = {
       tmp.useTmpfs = true;
       initrd.systemd.enable = true;
+      kernelPackages = pkgs.linuxPackages_zen;
       loader = {
         timeout = 0;
         efi.canTouchEfiVariables = true;

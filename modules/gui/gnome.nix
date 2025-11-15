@@ -66,7 +66,7 @@
           "org/gnome/desktop/interface".cursor-theme = "Bibata-Modern-Ice";
           "org/gnome/desktop/interface".gtk-enable-primary-paste = false;
           "org/gnome/desktop/interface".show-battery-percentage = true;
-          "org/gnome/desktop/interface".locate-pointer = true;
+          "org/gnome/desktop/interface".locate-pointer = false;
           "org/gnome/desktop/interface".show-seconds = true;
           "org/gnome/desktop/interface".show-date = true;
           "org/gnome/desktop/interface".show-weekday = true;

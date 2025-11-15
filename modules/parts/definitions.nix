@@ -1,4 +1,4 @@
-{ config, inputs, self, ... }:
+{ config, inputs, self, withSystem, ... }:
 
 let
   inherit (inputs.nixpkgs.lib) nixosSystem;
@@ -20,16 +20,17 @@ in {
     Superbia = let
       currentUser = "heartblin";
       prettyName = "HeartBlin";
-    in nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {
-        modules = flake;
-        inherit currentUser inputs prettyName;
-      };
+    in withSystem "x86_64-linux" ({ inputs', ... }:
+      nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          modules = flake;
+          inherit currentUser inputs inputs' prettyName;
+        };
 
-      modules =
-        [ inputs.disko.nixosModules.disko inputs.hjem.nixosModules.hjem ]
-        ++ machineFiles "Superbia";
-    };
+        modules =
+          [ inputs.disko.nixosModules.disko inputs.hjem.nixosModules.hjem ]
+          ++ machineFiles "Superbia";
+      });
   };
 }

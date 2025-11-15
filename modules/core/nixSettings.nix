@@ -2,7 +2,7 @@
   flake.nixosModules.nix = { inputs, pkgs, ... }: {
     nixpkgs.config.allowUnfree = true;
     nix = {
-      package = pkgs.nixVersions.latest;
+      package = pkgs.nixVersions.nix_2_31;
       registry.nixpkgs.flake = inputs.nixpkgs;
       channel.enable = false;
 

@@ -6,7 +6,6 @@
   imports = with modules.nixosModules; [
     asus
     boot
-    chaotic
     chrome
     discord
     fish
@@ -14,7 +13,7 @@
     git
     gnome
     mangohud
-    nh
+    minecraft
     nix
     nvidia
     prettyBoot

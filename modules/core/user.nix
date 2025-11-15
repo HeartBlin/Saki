@@ -1,8 +1,8 @@
 {
-  flake.nixosModules.user = { currentUser, inputs, pkgs, prettyName, ... }: {
+  flake.nixosModules.user = { currentUser, inputs', pkgs, prettyName, ... }: {
     hjem = {
       clobberByDefault = true;
-      linker = inputs.smfh.packages.${pkgs.system}.smfh;
+      linker = inputs'.hjem.packages.smfh;
       users."${currentUser}" = {
         enable = true;
         directory = "/home/${currentUser}";

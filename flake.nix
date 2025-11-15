@@ -2,15 +2,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs = {
-        home-manager.follows = "";
-        jovian.follows = "";
-        flake-schemas.follows = "";
-      };
-    };
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,10 +14,7 @@
 
     hjem = {
       url = "github:feel-co/hjem";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        smfh.follows = "smfh";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     import-tree.url = "github:vic/import-tree";
@@ -39,11 +27,6 @@
         pre-commit-hooks-nix.follows = "";
         flake-compat.follows = "";
       };
-    };
-
-    smfh = {
-      url = "github:feel-co/smfh";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

@@ -3,7 +3,14 @@
     users.users.${currentUser}.shell = pkgs.fish;
     programs.fish = {
       enable = true;
-      shellAliases = { ls = "${pkgs.eza}/bin/eza -l"; };
+      shellAliases = {
+        ls = "${pkgs.eza}/bin/eza -l";
+        makeSwitch =
+          "nixos-rebuild switch --flake ~/Documents/Saki/.# --sudo --log-format bar-with-logs";
+        makeBoot =
+          "nixos-rebuild boot --flake ~/Documents/Saki/.# --sudo --log-format bar-with-logs";
+        makeClean = "sudo nix-collect-garbage -d --log-format bar-with-logs";
+      };
       interactiveShellInit = ''
         set fish_greeting
 
