@@ -1,5 +1,5 @@
 {
-  perSystem = { inputs', pkgs, lib, ... }: {
+  perSystem = { inputs', pkgs, ... }: {
     packages = {
       SakiShell = pkgs.stdenv.mkDerivation {
         name = "SakiShell";

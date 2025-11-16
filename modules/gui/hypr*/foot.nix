@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.hyprland = { currentUser, inputs', pkgs, ... }: {
+  flake.nixosModules.hyprland = { pkgs, ... }: {
     fonts.packages = with pkgs; [ cascadia-code ];
 
     programs.foot = {
