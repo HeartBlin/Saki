@@ -82,7 +82,7 @@
         "files.trimTrailingWhitespace" = true;
       };
 
-      nixSettings = {
+      langSettings = {
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "nil";
         "nix.serverSettings"."nil"."formatting"."command" = [ "nixfmt" ];
@@ -91,6 +91,8 @@
           "editor.defaultFormatter" = "jnoortheen.nix-ide";
           "editor.formatOnSave" = true;
         };
+
+        "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
       };
 
       telemetrySettings = {
@@ -122,7 +124,7 @@
       };
 
       allSettings = cDevSettings // editorSettings // explorerSettings
-        // filesSettings // nixSettings // telemetrySettings // windowSettings
+        // filesSettings // langSettings // telemetrySettings // windowSettings
         // workbenchSettings // terminalSettings;
 
       settingsJSON = builtins.toJSON allSettings;

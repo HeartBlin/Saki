@@ -5,11 +5,11 @@
       enable = true;
       shellAliases = {
         ls = "${pkgs.eza}/bin/eza -l";
-        makeSwitch =
+        makeNix =
           "nixos-rebuild switch --flake ~/Documents/Saki/.# --sudo --log-format bar-with-logs";
-        makeBoot =
+        makeNixBoot =
           "nixos-rebuild boot --flake ~/Documents/Saki/.# --sudo --log-format bar-with-logs";
-        makeClean = "sudo nix-collect-garbage -d --log-format bar-with-logs";
+        makeNixClean = "sudo nix-collect-garbage -d --log-format bar-with-logs";
       };
       interactiveShellInit = ''
         set fish_greeting

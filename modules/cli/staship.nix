@@ -3,6 +3,7 @@
     programs.starship = {
       enable = true;
       settings = {
+        format = "$directory$git_branch$git_statusit$character";
         add_newline = false;
         directory.disabled = false;
         character = {

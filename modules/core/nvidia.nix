@@ -2,7 +2,6 @@
   flake.nixosModules.nvidia = { config, pkgs, ... }: {
     services.xserver.enable = true;
     services.xserver.videoDrivers = [ "nvidia" ];
-    boot.blacklistedKernelModules = [ "nouveau" ];
     nixpkgs.config = {
       allowUnfree = true;
       nvidia.acceptLicense = true;
