@@ -12,7 +12,7 @@
     gamemode
     git
     gnome
-    hyprland
+    hyprlandMeta
     mangohud
     minecraft
     nix

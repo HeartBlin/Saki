@@ -45,11 +45,11 @@
         "C_Cpp.intelliSenseEngine" = "disabled";
         "C_Cpp.default.compilerPath" = "${pkgs.gcc}/bin/gcc";
         "[c]" = {
-          "editor.defaultFormatter" = "llvm-tools.clangd";
+          "editor.defaultFormatter" = "llvm-vs-code-extensions.vscode-clangd";
           "editor.formatOnSave" = true;
         };
         "[cpp]" = {
-          "editor.defaultFormatter" = "llvm-tools.clangd";
+          "editor.defaultFormatter" = "llvm-vs-code-extensions.vscode-clangd";
           "editor.formatOnSave" = true;
         };
       };
@@ -63,7 +63,7 @@
         "editor.letterSpacing" = 0.5;
         "editor.lineHeight" = 22;
         "editor.minimap.enabled" = false;
-        "editor.scrollball.horizontal" = "hidden";
+        "editor.scrollbar.horizontal" = "hidden";
         "editor.smoothScrolling" = true;
         "editor.stickyScroll.enabled" = true;
         "editor.trimAutoWhitespace" = true;

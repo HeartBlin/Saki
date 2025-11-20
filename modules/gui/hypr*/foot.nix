@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.hyprland = { pkgs, ... }: {
+  flake.nixosModules.hyprlandMeta = { pkgs, ... }: {
     fonts.packages = with pkgs; [ cascadia-code ];
 
     programs.foot = {

@@ -28,26 +28,3 @@ jobs:
 
             - name: Run checks
               run: nix flake check --all-systems
-
-    EvalTime:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v5
-
-            - name: Install Nix
-              uses: cachix/install-nix-action@v31
-
-            - name: Set up cachix
-              uses: cachix/cachix-action@v16
-              with:
-                  name: heartblin
-                  authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
-            - name: Time flakes evaluation
-              run: |
-                time nix eval \
-                  .#nixosConfigurations.Superbia.config.system.build.toplevel \
-                  --substituters " " \
-                  --option eval-cache false \
-                  --raw --read-only

@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.nix = { inputs, pkgs, ... }: {
+  flake.nixosModules.nix = { inputs, pkgs, lib, ... }: {
     nixpkgs.config.allowUnfree = true;
     nix = {
       package = pkgs.nixVersions.nix_2_31;
@@ -8,12 +8,12 @@
 
       settings = {
         experimental-features = [ "nix-command" "flakes" ];
-        allow-import-from-derivation = false;
+        # allow-import-from-derivation = lib.mkForce true;
         auto-optimise-store = true;
         trusted-users = [ "root" "@wheel" ];
         warn-dirty = false;
-        trusted-substituters = [ "https://hyprland.cachix.org" ];
-        trusted-public-keys = [
+        extra-substituters = [ "https://hyprland.cachix.org" ];
+        extra-trusted-public-keys = [
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         ];
       };

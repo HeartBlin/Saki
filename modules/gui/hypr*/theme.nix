@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.hyprland = { pkgs, ... }: {
+  flake.nixosModules.hyprlandMeta = { pkgs, ... }: {
     programs.dconf.profiles.user.databases = [{
       settings."org/gnome/desktop/interface" = {
         gtk-theme = "Adwaita-dark";

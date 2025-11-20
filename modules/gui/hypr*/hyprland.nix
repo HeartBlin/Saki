@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.hyprland = { currentUser, inputs', pkgs, ... }: {
+  flake.nixosModules.hyprlandMeta = { currentUser, inputs', pkgs, ... }: {
     programs.hyprland = {
       enable = true;
       withUWSM = true;
@@ -117,12 +117,12 @@
 
         ## Window Rules ##
         # Steam
-        windowrule = float, class:steam
-        windowrule = center, class:steam, title:Steam
-        windowrule = opacity 1 1, class:steam
-        windowrule = size 1100 700, class:steam, title:Steam
-        windowrule = size 460 800, class:steam, title:Friends List
-        windowrule = idleinhibit fullscreen, class:steam
+        # windowrule = match:class steam, float
+        # windowrule = match:class steam, match:title Steam, center
+        # windowrule = opacity 1 1, class:steam
+        # windowrule = size 1100 700, class:steam, title:Steam
+        # windowrule = size 460 800, class:steam, title:Friends List
+        # windowrule = idleinhibit fullscreen, class:steam
 
         # Input
         input {
