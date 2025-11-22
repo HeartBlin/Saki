@@ -7,6 +7,7 @@
     asus
     boot
     chrome
+    davinci
     discord
     fish
     gamemode
