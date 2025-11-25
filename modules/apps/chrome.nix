@@ -12,5 +12,5 @@ in {
     };
 
   users.users =
-    lib.genAttrs ctx.users (userName: { packages = [ pkgs.google-chrome ]; });
+    lib.genAttrs ctx.users (_: { packages = [ pkgs.google-chrome ]; });
 }

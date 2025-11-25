@@ -10,12 +10,12 @@
 
     # Input tax
     lanzaboote.url = "github:nix-community/lanzaboote";
-    vicinae.url = "github:vicinaehq/vicinae";
+    vicinae.url = "github:vicinaehq/vicinae?ref=v0.16.10";
   };
 
   outputs = { nixpkgs, self, ... }@inputs:
     let
-      lib = nixpkgs.lib;
+      inherit (nixpkgs) lib;
       hosts =
         builtins.filter (name: builtins.pathExists ./hosts/${name}/config.nix)
         (builtins.attrNames (builtins.readDir ./hosts));

@@ -3,5 +3,5 @@
 let ctx = config.aster;
 in {
   users.users =
-    lib.genAttrs ctx.users (userName: { packages = [ pkgs.davinci-resolve ]; });
+    lib.genAttrs ctx.users (_: { packages = [ pkgs.davinci-resolve ]; });
 }

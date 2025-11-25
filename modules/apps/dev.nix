@@ -46,6 +46,8 @@ let
     llvm-vs-code-extensions.vscode-clangd
   ];
 
+  miscExtensions = with pkgs.vscode-extensions; [ pkief.material-icon-theme ];
+
   manualExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
     name = "sftp";
     publisher = "natizyskunk";
@@ -59,6 +61,7 @@ let
       languageServers
       githubExtensions
       cDevExtensions
+      miscExtensions
       manualExtensions
     ];
   };
@@ -153,7 +156,7 @@ let
 in {
   programs.git.enable = true;
 
-  users.users = lib.genAttrs ctx.users (userName: {
+  users.users = lib.genAttrs ctx.users (_: {
     packages = [
       vscodeExtended
       pkgs.nil
@@ -164,7 +167,7 @@ in {
     ];
   });
 
-  hjem.users = lib.genAttrs ctx.users (userName: {
+  hjem.users = lib.genAttrs ctx.users (_: {
     files = {
       ".config/git/config".text = gitConfig;
       ".ssh/allowed_signers".text = sshAllowedSigner;

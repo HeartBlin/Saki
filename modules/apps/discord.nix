@@ -2,7 +2,7 @@
 
 let ctx = config.aster;
 in {
-  users.users = lib.genAttrs ctx.users (userName: {
+  users.users = lib.genAttrs ctx.users (_: {
     packages = [
       (pkgs.discord.override {
         withOpenASAR = true;

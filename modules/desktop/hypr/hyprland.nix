@@ -7,7 +7,7 @@ in {
     withUWSM = true;
   };
 
-  hjem.users = lib.genAttrs ctx.users (userName: {
+  hjem.users = lib.genAttrs ctx.users (_: {
     files.".config/hypr/hyprland.conf".text = let uwsm = "uwsm app --";
     in ''
       ## Environment variables ##
@@ -146,6 +146,6 @@ in {
     '';
   });
 
-  users.users = lib.genAttrs ctx.users
-    (userName: { packages = with pkgs; [ swayosd swww ]; });
+  users.users =
+    lib.genAttrs ctx.users (_: { packages = with pkgs; [ swayosd swww ]; });
 }

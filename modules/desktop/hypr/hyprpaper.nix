@@ -2,7 +2,7 @@
 
 let ctx = config.aster;
 in {
-  hjem.users = lib.genAttrs ctx.users (userName: {
+  hjem.users = lib.genAttrs ctx.users (_: {
     files.".config/hypr/hyprpaper.conf".text = ''
       splash = false
 
@@ -12,5 +12,5 @@ in {
   });
 
   users.users =
-    lib.genAttrs ctx.users (userName: { packages = with pkgs; [ hyprpaper ]; });
+    lib.genAttrs ctx.users (_: { packages = with pkgs; [ hyprpaper ]; });
 }

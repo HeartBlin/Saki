@@ -7,9 +7,9 @@ in {
     shellAliases = {
       ls = "${pkgs.eza}/bin/eza -l";
       makeNix =
-        "nixos-rebuild switch --flake ~/Documents/Saki/.# --sudo --log-format bar-with-logs";
+        "nixos-rebuild switch --flake ~/Documents/Aster/.# --sudo --log-format bar-with-logs";
       makeNixBoot =
-        "nixos-rebuild boot --flake ~/Documents/Saki/.# --sudo --log-format bar-with-logs";
+        "nixos-rebuild boot --flake ~/Documents/Aster/.# --sudo --log-format bar-with-logs";
       makeNixClean = "sudo nix-collect-garbage -d --log-format bar-with-logs";
     };
 
@@ -40,5 +40,5 @@ in {
     };
   };
 
-  users.users = lib.genAttrs ctx.users (userName: { shell = pkgs.fish; });
+  users.users = lib.genAttrs ctx.users (_: { shell = pkgs.fish; });
 }
