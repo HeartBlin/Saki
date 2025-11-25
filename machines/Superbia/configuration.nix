@@ -1,9 +1,9 @@
 { modules, ... }:
 
 {
-  networking.hostName = "Superbia";
   system.stateVersion = "25.11";
   imports = with modules.nixosModules; [
+    analysis
     asus
     boot
     chrome
@@ -16,6 +16,7 @@
     hyprlandMeta
     mangohud
     minecraft
+    networking
     nix
     nvidia
     prettyBoot
@@ -27,7 +28,6 @@
     vscode
   ];
 
-  networking.networkmanager.enable = true;
   time.timeZone = "Europe/Bucharest";
 
   services.pipewire = {

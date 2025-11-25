@@ -28,9 +28,11 @@ in {
           inherit currentUser inputs inputs' prettyName;
         };
 
-        modules =
-          [ inputs.disko.nixosModules.disko inputs.hjem.nixosModules.hjem ]
-          ++ machineFiles "Superbia";
+        modules = [
+          inputs.disko.nixosModules.disko
+          inputs.hjem.nixosModules.hjem
+          { networking.hostName = "Superbia"; }
+        ] ++ machineFiles "Superbia";
       });
   };
 }

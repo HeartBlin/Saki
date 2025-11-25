@@ -1,19 +1,34 @@
 {
-  flake.nixosModules.nix = { inputs, pkgs, lib, ... }: {
+  flake.nixosModules.nix = { config, inputs, pkgs, lib, ... }: {
     nixpkgs.config.allowUnfree = true;
     nix = {
       package = pkgs.nixVersions.nix_2_31;
-      registry.nixpkgs.flake = inputs.nixpkgs;
       channel.enable = false;
 
+      registry = lib.mapAttrs (_: v: { flake = v; })
+        (lib.filterAttrs (_: x: lib.isType "flake" x) inputs);
+
+      nixPath =
+        lib.mapAttrsToList (x: _: "${x}=flake:${x}") config.nix.registry;
+
       settings = {
-        experimental-features = [ "nix-command" "flakes" ];
-        # allow-import-from-derivation = lib.mkForce true;
+        accept-flake-config = lib.mkForce false;
         auto-optimise-store = true;
+        builders-use-substitutes = true;
+        experimental-features = [ "nix-command" "flakes" ];
+        keep-derivations = true;
+        keep-outputs = true;
         trusted-users = [ "root" "@wheel" ];
         warn-dirty = false;
-        extra-substituters = [ "https://hyprland.cachix.org" ];
-        extra-trusted-public-keys = [
+
+        substituters = [
+          "https://cache.nixos.org?priority=10"
+          "https://nix-community.cachix.org"
+          "https://hyprland.cachix.org"
+        ];
+        trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         ];
       };
