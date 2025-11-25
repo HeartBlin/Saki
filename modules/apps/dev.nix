@@ -145,18 +145,11 @@ let
     "terminal.integrated.gpuAcceleration" = "on";
   };
 
-  settings = builtins.toJSON (lib.mkMerge [
-    cDevSettings
-    editorSettings
-    explorerSettings
-    filesSettings
-    langSettings
-    telemetrySettings
-    windowSettings
-    workbenchSettings
-    terminalSettings
-  ]);
+  allSettings = cDevSettings // editorSettings // explorerSettings
+    // filesSettings // langSettings // telemetrySettings // windowSettings
+    // workbenchSettings // terminalSettings;
 
+  settings = builtins.toJSON allSettings;
 in {
   programs.git.enable = true;
 
