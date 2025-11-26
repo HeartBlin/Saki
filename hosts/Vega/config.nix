@@ -1,6 +1,7 @@
-{ inputs, modulesPath, self, ... }:
+{ inputs, modulesPath, lib, pkgs, self, ... }:
 
-{
+let inherit (lib) mkForce;
+in {
   imports = [
     # From flake inputs
     inputs.hjem.nixosModules.default
@@ -13,6 +14,8 @@
     "${self}/modules/system/boot.nix"
     "${self}/modules/system/network.nix"
     "${self}/modules/system/nix.nix"
+    "${self}/modules/system/quietBoot.nix"
+    "${self}/modules/system/secureBoot.nix"
     "${self}/modules/system/users.nix"
 
     # From 'apps'
@@ -40,8 +43,13 @@
     "${self}/modules/hardware/nvidia.nix"
   ];
 
+  # Users
   aster.users = [ "heartblin" ];
 
+  # Module overrides
+  boot.kernelPackages = mkForce pkgs.linuxPackages_zen;
+
+  # Identity
   networking.hostName = "Vega";
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "25.11";
