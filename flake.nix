@@ -15,16 +15,21 @@
 
   outputs = { nixpkgs, self, ... }@inputs:
     let
-      inherit (nixpkgs) lib;
-      hosts =
-        builtins.filter (name: builtins.pathExists ./hosts/${name}/config.nix)
-        (builtins.attrNames (builtins.readDir ./hosts));
+      inherit (nixpkgs.lib) genAttrs nixosSystem;
+      inherit (builtins) readDir pathExists attrNames filter;
+      systems = [ "x86_64-linux" ];
+      hosts = filter (name: pathExists ./hosts/${name}/config.nix)
+        (attrNames (readDir ./hosts));
     in {
-      nixosConfigurations = lib.genAttrs hosts (hostName:
-        lib.nixosSystem {
+      nixosConfigurations = genAttrs hosts (hostName:
+        nixosSystem {
           specialArgs = { inherit inputs self; };
           modules =
             [ ./hosts/${hostName}/config.nix ./hosts/${hostName}/disko.nix ];
         });
+
+      devShells = genAttrs systems (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in import ./shells { inherit pkgs system; });
     };
 }
