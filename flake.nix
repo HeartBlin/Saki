@@ -1,43 +1,35 @@
 {
+  description = "Aster - NixOS configuration flake";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Core
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # System management
+    hjem.url = "github:feel-co/hjem";
+    disko.url = "github:nix-community/disko";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
-    hjem = {
-      url = "github:feel-co/hjem";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # No follows here, I don't want to recompile every time
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
-
-    import-tree.url = "github:vic/import-tree";
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit.follows = "";
-      };
-    };
-
-    vicinae = {
-      url = "github:vicinaehq/vicinae";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Input tax
+    lanzaboote.url = "github:nix-community/lanzaboote";
+    vicinae.url = "github:vicinaehq/vicinae?ref=v0.16.10";
   };
 
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; }
-    (inputs.import-tree ./modules);
+  outputs = { nixpkgs, self, ... }@inputs:
+    let
+      inherit (nixpkgs.lib) genAttrs nixosSystem;
+      inherit (builtins) readDir pathExists attrNames filter;
+      systems = [ "x86_64-linux" ];
+      hosts = filter (name: pathExists ./hosts/${name}/config.nix)
+        (attrNames (readDir ./hosts));
+    in {
+      nixosConfigurations = genAttrs hosts (hostName:
+        nixosSystem {
+          specialArgs = { inherit inputs self; };
+          modules =
+            [ ./hosts/${hostName}/config.nix ./hosts/${hostName}/disko.nix ];
+        });
+
+      devShells = genAttrs systems (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in import ./shells { inherit pkgs system; });
+    };
 }
