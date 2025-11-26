@@ -17,6 +17,7 @@
 
     # From 'apps'
     "${self}/modules/apps/analysis.nix"
+    "${self}/modules/apps/android.nix"
     "${self}/modules/apps/chrome.nix"
     "${self}/modules/apps/davinci.nix"
     "${self}/modules/apps/dev.nix"
