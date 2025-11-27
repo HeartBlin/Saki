@@ -11,6 +11,8 @@
     # Input tax
     lanzaboote.url = "github:nix-community/lanzaboote";
     vicinae.url = "github:vicinaehq/vicinae?ref=v0.16.10";
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { nixpkgs, self, ... }@inputs:

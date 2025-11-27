@@ -1,43 +1,51 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 let ctx = config.aster;
 in {
-  programs.fish = {
-    enable = true;
-    shellAliases = {
-      ls = "${pkgs.eza}/bin/eza -l";
-      makeNix =
-        "nixos-rebuild switch --flake ~/Documents/Aster/.# --sudo --log-format bar-with-logs";
-      makeNixBoot =
-        "nixos-rebuild boot --flake ~/Documents/Aster/.# --sudo --log-format bar-with-logs";
-      makeNixClean = "sudo nix-collect-garbage -d --log-format bar-with-logs";
-    };
+  imports = [ inputs.nix-index-database.nixosModules.nix-index ];
 
-    interactiveShellInit = ''
-      set fish_greeting
-
-      function .
-        nix shell nixpkgs#$argv[1]
-      end
-
-      function fish_command_not_found
-        echo Did not find command: $argv[1]
-      end
-    '';
-  };
-
-  programs.starship = {
-    enable = true;
-    settings = {
-      format = "$directory$git_branch$git_status$character";
-      add_newline = false;
-      directory.disabled = false;
-      character = {
-        disabled = false;
-        success_symbol = "[λ](bold purple)";
-        error_symbol = "[λ](bold red)";
+  programs = {
+    command-not-found.enable = false;
+    fish = {
+      enable = true;
+      interactiveShellInit = "set fish_greeting";
+      shellAliases = {
+        ls = "${pkgs.eza}/bin/eza -l";
+        cat = "${pkgs.bat}/bin/bat";
       };
     };
+
+    starship = {
+      enable = true;
+      settings = {
+        format = "$directory$git_branch$git_status$character";
+        add_newline = false;
+        directory.disabled = false;
+        character = {
+          disabled = false;
+          success_symbol = "[λ](bold purple)";
+          error_symbol = "[λ](bold red)";
+        };
+      };
+    };
+
+    nix-index-database.comma.enable = true;
+    nix-index = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+      flags = [ "--cmd cd" ];
+    };
+  };
+
+  environment.shellAliases = {
+    makeNix = "nh os switch";
+    makeNixBoot = "nh os boot";
+    cleanNix = "nh clean all";
   };
 
   users.users = lib.genAttrs ctx.users (_: { shell = pkgs.fish; });

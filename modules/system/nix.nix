@@ -29,4 +29,15 @@
     man.enable = false;
     info.enable = false;
   };
+
+  programs.nh = {
+    enable = true;
+    flake = "~/Documents/Aster";
+  };
+
+  environment.shellAliases = {
+    makeNix = "nh os switch";
+    makeNixBoot = "nh os boot";
+    cleanNix = "nh clean all";
+  };
 }
