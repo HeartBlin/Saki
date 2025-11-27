@@ -6,12 +6,16 @@ in {
     # From flake inputs
     inputs.hjem.nixosModules.default
     inputs.disko.nixosModules.default
+    inputs.lanzaboote.nixosModules.lanzaboote
+    inputs.nix-index-database.nixosModules.nix-index
 
     # Unknown hardware
     (modulesPath + "/installer/scan/not-detected.nix")
 
     # From 'system'
+    "${self}/modules/system/audio.nix"
     "${self}/modules/system/boot.nix"
+    "${self}/modules/system/locale.nix"
     "${self}/modules/system/network.nix"
     "${self}/modules/system/nix.nix"
     "${self}/modules/system/quietBoot.nix"

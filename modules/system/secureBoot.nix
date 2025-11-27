@@ -1,19 +1,15 @@
-{ inputs, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let inherit (lib) mkForce;
 in {
-  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+  environment.systemPackages = [ pkgs.sbctl ];
 
-  config = {
-    environment.systemPackages = [ pkgs.sbctl ];
-
-    boot = {
-      bootspec.enable = true;
-      loader.systemd-boot.enable = mkForce false;
-      lanzaboote = {
-        enable = true;
-        pkiBundle = "/var/lib/sbctl";
-      };
+  boot = {
+    bootspec.enable = true;
+    loader.systemd-boot.enable = mkForce false;
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
     };
   };
 }

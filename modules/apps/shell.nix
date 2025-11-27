@@ -1,9 +1,7 @@
-{ config, inputs, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let ctx = config.aster;
 in {
-  imports = [ inputs.nix-index-database.nixosModules.nix-index ];
-
   programs = {
     command-not-found.enable = false;
     fish = {

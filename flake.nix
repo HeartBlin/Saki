@@ -33,5 +33,9 @@
       devShells = genAttrs systems (system:
         let pkgs = nixpkgs.legacyPackages.${system};
         in import ./shells { inherit pkgs system; });
+
+      formatter = genAttrs systems (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in pkgs.nixfmt-classic);
     };
 }

@@ -4,7 +4,6 @@
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   nixpkgs.config = {
-    allowUnfree = true;
     nvidia.acceptLicense = true;
     cudaSupport = true;
   };
