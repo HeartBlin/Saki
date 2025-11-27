@@ -30,7 +30,10 @@ let
       IdentityFile ~/.ssh/githubAuth
   '';
 
-  languageServers = with pkgs.vscode-extensions; [ jnoortheen.nix-ide ];
+  languageServers = with pkgs.vscode-extensions; [
+    jnoortheen.nix-ide
+    esbenp.prettier-vscode
+  ];
 
   githubExtensions = with pkgs.vscode-extensions.github; [
     copilot
@@ -46,7 +49,12 @@ let
     llvm-vs-code-extensions.vscode-clangd
   ];
 
-  miscExtensions = with pkgs.vscode-extensions; [ pkief.material-icon-theme ];
+  miscExtensions = with pkgs.vscode-extensions; [
+    pkief.material-icon-theme
+    usernamehw.errorlens
+    mkhl.direnv
+    gruntfuggly.todo-tree
+  ];
 
   manualExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
     name = "sftp";
@@ -85,6 +93,7 @@ let
     "editor.cursorSmoothCaretAnimation" = "on";
     "editor.fontFamily" = "'Cascadia Code', 'monospace'";
     "editor.fontLigatures" = true;
+    "editor.guide.bracketPairs" = true;
     "editor.letterSpacing" = 0.5;
     "editor.lineHeight" = 22;
     "editor.minimap.enabled" = false;
@@ -99,6 +108,12 @@ let
     "explorer.compactFolders" = false;
     "explorer.confirmDelete" = false;
     "explorer.confirmDragAndDrop" = false;
+  };
+
+  extensionSettings = {
+    "errorLens.gutterIconsEnabled" = true;
+    "errorLens.messageBackgroundMode" = "message";
+    "direnv.restart.automatic" = true;
   };
 
   filesSettings = {
@@ -149,8 +164,8 @@ let
   };
 
   allSettings = cDevSettings // editorSettings // explorerSettings
-    // filesSettings // langSettings // telemetrySettings // windowSettings
-    // workbenchSettings // terminalSettings;
+    // extensionSettings // filesSettings // langSettings // telemetrySettings
+    // windowSettings // workbenchSettings // terminalSettings;
 
   settings = builtins.toJSON allSettings;
 in {

@@ -1,6 +1,9 @@
 { config, inputs, lib, pkgs, ... }:
 
-{
+let
+  inherit (builtins) head;
+  ctx = config.aster;
+in {
   nixpkgs.config.allowUnfree = true;
 
   nix = {
@@ -32,7 +35,7 @@
 
   programs.nh = {
     enable = true;
-    flake = "~/Documents/Aster";
+    flake = "/home/${head ctx.users}/Documents/Aster";
   };
 
   environment.shellAliases = {
