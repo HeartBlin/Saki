@@ -5,6 +5,7 @@ in {
   imports = [
     # From flake inputs
     inputs.hjem.nixosModules.default
+    inputs.hyprland.nixosModules.default
     inputs.disko.nixosModules.default
     inputs.lanzaboote.nixosModules.lanzaboote
     inputs.nix-index-database.nixosModules.nix-index

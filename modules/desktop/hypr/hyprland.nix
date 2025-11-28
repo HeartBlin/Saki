@@ -1,150 +1,159 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
-let ctx = config.aster;
+let
+  ctx = config.aster;
+  hypr = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+  uwsm = "uwsm app --";
 in {
   programs.hyprland = {
     enable = true;
     withUWSM = true;
+    package = hypr.hyprland;
+    portalPackage = hypr.xdg-desktop-portal-hyprland;
+    settings = {
+      env = [
+        "XCURSOR_SIZE,24"
+        "HYPRCURSOR_SIZE,24"
+        "GDK_BACKEND,wayland,x11,*"
+        "QT_QPA_PLATFORM,wayland;xcb"
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "SDL_VIDEODRIVER,wayland"
+        "ELECTRON_OZONE_PLATFORM_HINT,wayland"
+        "OZONE_PLATFORM,wayland"
+        "XDG_SESSION_TYPE,wayland"
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_DESKTOP,Hyprland"
+      ];
+
+      monitor = [ "eDP-1, 1920x1080@144, 0x0, 1" ];
+      xwayland.force_zero_scaling = true;
+      exec-once = [
+        # Finish setup
+        "uwsm finalize"
+
+        "foot-server"
+        "vicinae server"
+        "hyprpaper"
+        "swayosd-server"
+
+        # Fixes
+        "systemctl --user import-environment $(env | cut -d'=' -f 1)"
+        "dbus-update-activation-environment --systemd --all"
+        "hyprctl setcursor Bibata-Modern-Ice 24"
+      ];
+
+      general = {
+        border_size = 2;
+        gaps_in = 10;
+        gaps_out = 20;
+        resize_on_border = true;
+        allow_tearing = true; # On that X11 grind
+        "col.inactive_border" = "0xff444444";
+        "col.active_border" =
+          "0xffef7e7e 0xffe57474 0xfff4d67a 0xffe5c76b 0xff96d988 0xff8ccf7e 0xff67cbe7 0xff6cbfbf 0xff71baf2 0xffc47fd5 45deg";
+      };
+
+      decoration = {
+        rounding = 10;
+        rounding_power = 3;
+
+        blur = {
+          enabled = true;
+
+          brightness = 1.0;
+          contrast = 1.0;
+          noise = 1.0e-2; # Bruh why does nixfmt not like 0.01 wtf?
+
+          vibrancy = 0.2;
+          vibrancy_darkness = 0.5;
+
+          passes = 4;
+          size = 7;
+
+          popups = true;
+          popups_ignorealpha = 0.2;
+        };
+
+        shadow = {
+          enabled = true;
+          color = "0x00000055";
+          ignore_window = true;
+          offset = "0 15";
+          range = 100;
+          render_power = 2;
+          scale = 1.0;
+        };
+      };
+
+      windowrule = [ "match:class foot, opacity 0.85" ];
+
+      bind = [
+        # Applications
+        "Super, Return, exec, ${uwsm} footclient"
+        "Super, Space, exec, ${uwsm} vicinae toggle"
+        "Super, E, exec, ${uwsm} nautilus"
+        "Super, W, exec, ${uwsm} google-chrome-stable"
+
+        # Close windows/Hyprland
+        "Super, Q, killactive"
+        "Super Shift, Q, exit"
+
+        # Switch workspaces
+        "Super, 1, workspace, 1"
+        "Super, 2, workspace, 2"
+        "Super, 3, workspace, 3"
+        "Super, 4, workspace, 4"
+        "Super, 5, workspace, 5"
+        "Super, 6, workspace, 6"
+        "Super, 7, workspace, 7"
+        "Super, 8, workspace, 8"
+        "Super, 9, workspace, 9"
+        "Super, 0, workspace, 10"
+
+        # Move active window to workspace
+        "Super Shift, 1, movetoworkspace, 1"
+        "Super Shift, 2, movetoworkspace, 2"
+        "Super Shift, 3, movetoworkspace, 3"
+        "Super Shift, 4, movetoworkspace, 4"
+        "Super Shift, 5, movetoworkspace, 5"
+        "Super Shift, 6, movetoworkspace, 6"
+        "Super Shift, 7, movetoworkspace, 7"
+        "Super Shift, 8, movetoworkspace, 8"
+        "Super Shift, 9, movetoworkspace, 9"
+        "Super Shift, 0, movetoworkspace, 10"
+      ];
+
+      bindm =
+        [ "Super, mouse:272, movewindow" "Super, mouse:273, resizewindow" ];
+
+      bindel = [
+        ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+        ",XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+        ",XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+        ",XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle"
+        ",XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+        ",XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
+        ",XF86AudioPlay, exec, swayosd-client --playerctl play-pause"
+      ];
+
+      input = {
+        kb_layout = "ro";
+        follow_mouse = 1;
+        sensitivity = 0;
+        touchpad = {
+          natural_scroll = false;
+          clickfinger_behavior = true;
+          disable_while_typing = true;
+          tap-to-click = true;
+        };
+      };
+
+      ecosystem = {
+        no_update_news = true;
+        no_donation_nag = true;
+      };
+    };
   };
-
-  hjem.users = lib.genAttrs ctx.users (_: {
-    files.".config/hypr/hyprland.conf".text = let uwsm = "uwsm app --";
-    in ''
-      ## Environment variables ##
-      # Cursor sizes
-      env = XCURSOR_SIZE,24
-      env = HYPRCURSOR_SIZE,24
-
-      # Force apps to use Wayland
-      env = GDK_BACKEND,wayland,x11,*
-      env = QT_QPA_PLATFORM,wayland;xcb
-      env = SDL_VIDEODRIVER,wayland
-      env = ELECTRON_OZONE_PLATFORM_HINT,wayland
-      env = OZONE_PLATFORM,wayland
-      env = XDG_SESSION_TYPE,wayland
-
-      # Bette screen sharing
-      env = XDG_CURRENT_DESKTOP,Hyprland
-      env = XDG_SESSION_DESKTOP,Hyprland
-
-      ## Monitors ##
-      monitor = eDP-1, 1920x1080@144, 0x0, 1
-
-      # Fix xwayland
-      xwayland {
-        force_zero_scaling = true
-      }
-
-      ## Startup ##
-      # Apps
-      exec-once = caelestia-shell
-      exec-once = foot --server
-      exec-once = vicinae server
-      exec-once = hyprpaper
-      exec-once = swayosd-server
-
-      # Fixes
-      exec-once = systemctl --user import-environment $(env | cut -d'=' -f 1)
-      exec-once = dbus-update-activation-environment --systemd --all
-      exec-once = hyprctl setcursor Bibata-Modern-Ice 24
-
-      ## Appearance ##
-      general {
-        border_size = 2
-        gaps_in = 10
-        gaps_out = 20
-        col.inactive_border = 0xff444444
-        col.active_border = 0xffef7e7e 0xffe57474 0xfff4d67a 0xffe5c76b 0xff96d988 0xff8ccf7e 0xff67cbe7 0xff6cbfbf 0xff71baf2 0xffc47fd5 45deg
-
-        resize_on_border = true
-      }
-
-      decoration {
-        rounding  = 10
-
-        blur {
-          enabled = false
-        }
-      }
-
-      ## Binds ##
-      # Applications
-      bind = Super, Return, exec, ${uwsm} footclient
-      bind = Super, Space, exec, ${uwsm} vicinae toggle
-      bind = Super, E, exec, ${uwsm} nautilus
-      bind = Super, W, exec, ${uwsm} google-chrome-stable
-
-      # Close windows/Hyprland
-      bind = Super, Q, killactive
-      bind = Super Shift, Q, exit
-
-      # Switch workspaces
-      bind = Super, 1, workspace, 1
-      bind = Super, 2, workspace, 2
-      bind = Super, 3, workspace, 3
-      bind = Super, 4, workspace, 4
-      bind = Super, 5, workspace, 5
-      bind = Super, 6, workspace, 6
-      bind = Super, 7, workspace, 7
-      bind = Super, 8, workspace, 8
-      bind = Super, 9, workspace, 9
-      bind = Super, 0, workspace, 10
-
-      # Move active window to workspace
-      bind = Super Shift, 1, movetoworkspace, 1
-      bind = Super Shift, 2, movetoworkspace, 2
-      bind = Super Shift, 3, movetoworkspace, 3
-      bind = Super Shift, 4, movetoworkspace, 4
-      bind = Super Shift, 5, movetoworkspace, 5
-      bind = Super Shift, 6, movetoworkspace, 6
-      bind = Super Shift, 7, movetoworkspace, 7
-      bind = Super Shift, 8, movetoworkspace, 8
-      bind = Super Shift, 9, movetoworkspace, 9
-      bind = Super Shift, 0, movetoworkspace, 10
-
-      # Mouse binds
-      bindm = Super, mouse:272, movewindow
-      bindm = Super, mouse:273, resizewindow
-
-      # Media keys
-      bindel = ,XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise
-      bindel = ,XF86AudioLowerVolume, exec, swayosd-client --output-volume lower
-      bindel = ,XF86AudioMute, exec, swayosd-client --output-volume mute-toggle
-      bindel = ,XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle
-      bindel = ,XF86MonBrightnessUp, exec, swayosd-client --brightness raise
-      bindel = ,XF86MonBrightnessDown, exec, swayosd-client --brightness lower
-      bindel = ,XF86AudioPlay, exec, swayosd-client --playerctl play-pause
-
-      ## Window Rules ##
-      # Steam
-      # windowrule = match:class steam, float
-      # windowrule = match:class steam, match:title Steam, center
-      # windowrule = opacity 1 1, class:steam
-      # windowrule = size 1100 700, class:steam, title:Steam
-      # windowrule = size 460 800, class:steam, title:Friends List
-      # windowrule = idleinhibit fullscreen, class:steam
-
-      # Input
-      input {
-        kb_layout = ro
-        follow_mouse = 1
-        sensitivity = 0
-        touchpad {
-          natural_scroll = false
-          clickfinger_behavior = true
-          disable_while_typing = true
-          tap-to-click = true
-        }
-      }
-
-      ## Extras ##
-      # Shut up
-      ecosystem {
-        no_update_news = true
-        no_donation_nag = true
-      }
-    '';
-  });
 
   users.users =
     lib.genAttrs ctx.users (_: { packages = with pkgs; [ swayosd swww ]; });
