@@ -31,7 +31,6 @@ in {
         # Finish setup
         "uwsm finalize"
 
-        "foot-server"
         "vicinae server"
         "hyprpaper"
         "swayosd-server"
@@ -85,11 +84,9 @@ in {
         };
       };
 
-      windowrule = [ "match:class foot, opacity 0.85" ];
-
       bind = [
         # Applications
-        "Super, Return, exec, ${uwsm} footclient"
+        "Super, Return, exec, ${uwsm} foot"
         "Super, Space, exec, ${uwsm} vicinae toggle"
         "Super, E, exec, ${uwsm} nautilus"
         "Super, W, exec, ${uwsm} google-chrome-stable"
@@ -152,6 +149,10 @@ in {
         no_update_news = true;
         no_donation_nag = true;
       };
+
+      misc.disable_autoreload = true;
+      render.direct_scanout = 1;
+
     };
   };
 
