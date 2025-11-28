@@ -4,6 +4,9 @@ let
   ctx = config.aster;
   hypr = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
   uwsm = "uwsm app --";
+  battery = ''
+    hyprctl notify 2 4000 "0xff444444" "fontsize:15 Battery: $(cat /sys/class/power_supply/BAT0/capacity)%"'';
+  clock = ''hyprctl notify 2 4000 "0xff444444" "fontsize:15 $(date +'%H:%M')"'';
 in {
   programs.hyprland = {
     enable = true;
@@ -34,6 +37,7 @@ in {
         "vicinae server"
         "hyprpaper"
         "swayosd-server"
+        "GalaxyBudsClient /StartMinimized" # Powershell lmao
 
         # Fixes
         "systemctl --user import-environment $(env | cut -d'=' -f 1)"
@@ -90,6 +94,9 @@ in {
         "Super, Space, exec, ${uwsm} vicinae toggle"
         "Super, E, exec, ${uwsm} nautilus"
         "Super, W, exec, ${uwsm} google-chrome-stable"
+        "Super Shift, B, exec, ${uwsm} GalaxyBudsClient app -a"
+        "Super, B, exec, ${battery}"
+        "Super, C, exec, ${clock}"
 
         # Close windows/Hyprland
         "Super, Q, killactive"

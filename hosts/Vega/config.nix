@@ -45,6 +45,7 @@ in {
 
     # From 'hardware'
     "${self}/modules/hardware/asus.nix"
+    "${self}/modules/hardware/bluetooth.nix"
     "${self}/modules/hardware/nvidia.nix"
   ];
 
